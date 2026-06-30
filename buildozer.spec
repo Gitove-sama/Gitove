@@ -11,8 +11,8 @@ orientation = portrait
 fullscreen = 1
 
 # --- إعدادات توافق هامة ---
-android.sdk = 34
-android.build_tools_version = 34.0.0
-android.api = 34
+android.sdk = 33
+android.build_tools_version = 33.0.0
+android.api = 33
 android.ndk = 25b
 android.archs = arm64-v8a
