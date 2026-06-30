@@ -16,10 +16,10 @@ jobs:
           pip3 install --user --upgrade buildozer
       - name: Build with Buildozer
         run: |
-          # الموافقة التلقائية على الرخص وتجهيز البيئة
+          export PATH=$PATH:~/.local/bin
+          # الموافقة على رخص الأندرويد تلقائياً
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          export PATH=$PATH:~/.local/bin
           buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
