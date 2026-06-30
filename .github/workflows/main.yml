@@ -7,19 +7,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: kivy/buildozer:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-          pip3 install --user --upgrade buildozer
       - name: Build with Buildozer
         run: |
-          export PATH=$PATH:~/.local/bin
-          # الموافقة على رخص الأندرويد تلقائياً
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
+          # إصلاح صلاحيات المجلد
+          sudo chown -R user:user .
+          # تحديث Buildozer وضبط البيئة
+          pip3 install --upgrade buildozer
           buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
