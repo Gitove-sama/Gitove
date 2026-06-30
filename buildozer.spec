@@ -17,3 +17,7 @@ android.build_tools_version = 33.0.0
 android.api = 33
 android.ndk = 25b
 android.archs = arm64-v8a
+[buildozer]
+# ضبط مستوى السجلات من هنا يمنع حدوث خطأ Unknown command
+log_level = 1
+warn_on_root = 1
