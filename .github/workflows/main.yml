@@ -12,17 +12,15 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          # إزالة libtinfo5 المسببة للمشكلة وتثبيت البدائل المحدثة
           sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
           pip3 install --user --upgrade buildozer
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:~/.local/bin
-          # الموافقة على الرخص بذكاء
+          # الموافقة التلقائية والقسرية على جميع التراخيص
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          # استخدام --verbose لمتابعة أدق في سجلات الخطأ
-          buildozer --verbose android debug
+          yes | buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
