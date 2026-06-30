@@ -13,17 +13,22 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          # تثبيت المكتبات الأساسية بدون libtinfo5 المسببة للمشاكل
           sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
           pip3 install --user --upgrade buildozer
+      
+      - name: Setup Android SDK and Accept Licenses
+        run: |
+          # تثبيت أدوات سطر الأوامر الخاصة بالأندرويد
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+          # استخدام yes للموافقة على كل شيء قبل بدء البناء
+          yes | sdkmanager --sdk_root=/home/runner/.buildozer/android/platform/android-sdk "platforms;android-33" "build-tools;33.0.0" "platform-tools"
+          yes | sdkmanager --sdk_root=/home/runner/.buildozer/android/platform/android-sdk --licenses
       
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:~/.local/bin
-          # إعداد مجلد التراخيص
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          # استخدام --verbose لإجبار السجلات على الظهور
+          # تشغيل البناء مع إعدادات مفصلة
           buildozer --verbose android debug
       
       - name: Upload APK
