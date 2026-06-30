@@ -10,7 +10,7 @@ version = 0.1
 orientation = portrait
 fullscreen = 1
 
-# --- إعدادات توافق هامة ---
+# إعدادات صارمة لضمان التوافق وتجنب الإصدارات غير المستقرة
 android.sdk = 33
 android.build_tools_version = 33.0.0
 android.api = 33
