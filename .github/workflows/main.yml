@@ -9,21 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
           pip3 install --user --upgrade buildozer
-      - name: Build with Buildozer
+      
+      - name: Build with Buildozer (Quiet Mode)
         run: |
           export PATH=$PATH:~/.local/bin
-          # إعداد مجلد التراخيص
+          # الموافقة على الرخص
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          # الموافقة التلقائية على الرخص وتنفيذ البناء
-          yes | buildozer android debug
+          # استخدام --log_level 1 لتقليل حجم السجلات ومنع الـ Broken Pipe
+          # وإضافة أمر للبناء في الخلفية إذا لزم الأمر
+          buildozer --log_level 1 android debug
+      
       - name: Upload APK
         uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: package
           path: bin/*.apk
