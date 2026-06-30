@@ -10,14 +10,13 @@ version = 0.1
 orientation = portrait
 fullscreen = 1
 
-# --- إعدادات التوافق (مهمة جداً) ---
-# استخدام إصدار 33 يضمن عدم فشل البناء بسبب الرخص الخاصة بإصدار 37
+# --- إعدادات التوافق ---
 android.sdk = 33
 android.build_tools_version = 33.0.0
 android.api = 33
 android.ndk = 25b
 android.archs = arm64-v8a
+
 [buildozer]
-# ضبط مستوى السجلات من هنا يمنع حدوث خطأ Unknown command
-log_level = 1
+log_level = 2
 warn_on_root = 1
