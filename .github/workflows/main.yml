@@ -16,7 +16,9 @@ jobs:
           pip3 install --user --upgrade buildozer
       - name: Build with Buildozer
         run: |
-          # إصلاح لضمان التعرف على المسارات
+          # الموافقة التلقائية على الرخص وتجهيز البيئة
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
           export PATH=$PATH:~/.local/bin
           buildozer android debug
       - name: Upload APK
